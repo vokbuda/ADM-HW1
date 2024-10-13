@@ -6,6 +6,7 @@ import random
 import re
 import sys
 
+#Birthday Cake Candles
 def birthdayCakeCandles(candles):
     counter=0
     some=max(candles) 
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     fptr.write(str(result) + '\n')
 
     fptr.close()
-# Number line Jumps
+# Number Line Jumps
 
 import math
 import os
@@ -36,49 +37,49 @@ import sys
 
 
 def kangaroo(x1, v1, x2, v2):
-    
-    maxi=x2
-    maxiv=v2
-    mini=x1
-    miniv=v1
-    interm=x2-x1
-    if interm<0:
-        interm*=-1
-        mini=x2
-        miniv=v2
-        maxi=x1
-        maxiv=v1
-    if mini==maxi:
+    # Set the kangaroo with the smaller starting position to mini
+    maxi = x2
+    maxiv = v2
+    mini = x1
+    miniv = v1
+
+    # Adjust if x2 starts behind x1
+    if x2 < x1:
+        mini = x2
+        miniv = v2
+        maxi = x1
+        maxiv = v1
+
+    # If they start at the same position, they meet
+    if mini == maxi:
         return 'YES'
-    if miniv<=maxiv:
+
+    # If the kangaroo behind has a slower or equal speed, no meeting
+    if miniv <= maxiv:
         return 'NO'
-       
-    while mini<maxi:
-        mini+=miniv
-        maxi+=maxiv
-        if mini==maxi:
-            return 'YES'    
+
+    # Simulate jumps and check if they land on the same spot
+    while mini < maxi:
+        mini += miniv
+        maxi += maxiv
+        if mini == maxi:
+            return 'YES'
+
+    # Return 'NO'
     return 'NO'
-    
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
+    # Read input
     first_multiple_input = input().rstrip().split()
-
     x1 = int(first_multiple_input[0])
-
     v1 = int(first_multiple_input[1])
-
     x2 = int(first_multiple_input[2])
-
     v2 = int(first_multiple_input[3])
 
+    # Output result
     result = kangaroo(x1, v1, x2, v2)
+    print(result)
 
-    fptr.write(result + '\n')
-
-    fptr.close()
 # Arithmetic Operators
 if __name__ == '__main__':
     a = int(input())
@@ -1739,65 +1740,106 @@ print(outer_product)
 # Detect HTML Tags, Attributes and Attribute Values
 
 from html.parser import HTMLParser
+import math
+import os
+import random
+import re
+import sys
 
+# Define a class to handle parsing of HTML tags and attributes
 class MyHTMLParser(HTMLParser):
+
+    # Handle opening tags and print
     def handle_starttag(self, tag, attrs):
         print(tag)
         if attrs:
             for attr in attrs:
                 print(f"-> {attr[0]} > {attr[1]}")
 
-    def handle_endtag(self, tag):
-        pass
+  
 
+    # Handle tags and print the tag name and its attributes
     def handle_startendtag(self, tag, attrs):
         print(tag)
         if attrs:
             for attr in attrs:
                 print(f"-> {attr[0]} > {attr[1]}")
 
+# get lines in html
 n = int(input())
 html_code = ""
 for _ in range(n):
-    line = input()
-    html_code += line
+    html_code += input()
 
+# Create MyHTMLParser and parse the collected HTML
 parser = MyHTMLParser()
 parser.feed(html_code)
 
+
 # Nested Lists
 
+
 if __name__ == '__main__':
-    main=dict()
+    
+    # Create an empty dictionary to store names and scores
+    main = dict()
+    
+    # Loop to get input from the user
     for _ in range(int(input())):
-        name = input()
-        score = float(input())
-        main[name]=score
+        name = input()  # Get the name
+        score = float(input())  # Get the score
+        
+        # Save the name and score in the dictionary
+        main[name] = score
+
+    # Get all the scores from the dictionary
     values = list(main.values())
+    
+    # Find the lowest score
     min_value = min(values)
-    values=[x for x in values if x!=min_value]
+    
+    # Remove the lowest score from the list of scores
+    values = [x for x in values if x != min_value]
+    
+    # Find the second lowest score
     second_min_value = min(values)
     
-    lister=[]
+    # Create a list to store names with the second lowest score
+    lister = []
+    
+    # Add names with the second lowest score to the list
     for x in main:
-        
-        if main[x]==second_min_value:
+        if main[x] == second_min_value:
             lister.append(x)
-    lister=sorted(lister)
+    
+    # Sort the list of names alphabetically
+    lister = sorted(lister)
+    
+    # Print the names one by one
     for value in lister:
         print(value)
 
 
+
 # XML2 - Find the Maximum Depth
 
+# maxdepth to keep track of the deepest level found.
 maxdepth = 0
+
+# Define a recursive function 'depth' to calculate the depth
 def depth(elem, level):
-    global maxdepth
+    global maxdepth  # maxdepth to track depth
+    
+    # If -1 , set it to 0.
     if level == -1:
         level = 0
     else:
-        level += 1
+        level += 1  # Increment the current level
+
+    # check if level is bigger than maxdepth
     if level > maxdepth:
         maxdepth = level
+
+    # Recursion
     for child in elem:
-        depth(child, level)
+        depth(child, level)  # The depth of each child is calculated based on the current level.
